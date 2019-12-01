@@ -8,12 +8,6 @@ import configparser
 
 
 # DEFINED FUNCTIONS
-def main():
-    '''Main function of the script.'''
-    settings = load_settings('FilesOrganizer_cfg.ini')
-    print(settings)
-
-
 def load_settings(filename):
     '''Load settings from configuration file.'''
     settings = {}
@@ -25,6 +19,14 @@ def load_settings(filename):
             options_dictionary[option] = config[section][option]
         settings[section] = options_dictionary
     return settings
+
+def main():
+    '''Main function of the script.'''
+    try:
+        SETTINGS = load_settings('FilesOrganizer_cfg.ini')
+        print(SETTINGS)
+    except configparser.Error:
+        print('\nAn exception associated with the configuration file has occurred.\nCheck the file.')
 
 
 # MAIN PROGRAM
