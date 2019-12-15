@@ -5,9 +5,11 @@ Author: Tomasz Piętka (tomaszpwlkp@o2.pl)
 '''
 
 import configparser
+from files_organization import FilesOrganization
 
 
 # DEFINED FUNCTIONS
+
 def load_settings(filename):
     '''Load settings from configuration file.'''
     settings = {}
@@ -25,6 +27,17 @@ def main():
     try:
         SETTINGS = load_settings('FilesOrganizer_cfg.ini')
         print(SETTINGS)
+        source_folder = SETTINGS['general_settings']['source_folder']
+        #print(source_folder)
+        organizer = FilesOrganization()
+        files_list = organizer.get_files_with_prefix(source_folder, 'mds201')
+        for filename in files_list:
+            print(filename)
+
+
+
+
+
     except configparser.Error:
         print('\nAn exception associated with the configuration file has occurred.\nCheck the file.')
 
