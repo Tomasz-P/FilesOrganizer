@@ -15,18 +15,23 @@ class FilesOrganization(object):
 
     def __init__(self):
         '''Class constructor.'''
-        pass
+        self.empty_file_prefix = 'EMPTY_'
 
     def label_empty_file(self, path, fullfilename):
-        '''Labels an empty file with a prefix EMPTY_.'''
+        '''Labels an empty file with a prefix "self.empty_file_prefix". Method takes two arguments.
+        path - a path to the directory in which the file is located,
+        fullfilename - a full name of the file with an extension.
+        '''
         if os.path.getsize(os.path.join(path, fullfilename)) == 0:
-            labelled_fullfilename = 'EMPTY_' + fullfilename
+            labelled_fullfilename = self.empty_file_prefix + fullfilename
             os.rename(os.path.join(path, fullfilename), os.path.join(path, labelled_fullfilename))
             return labelled_fullfilename
         return 0
 
     def get_files_with_prefix(self, folder_path, prefix):
-        '''Returns a list of files that start with a prefix.'''
+        '''Returns a list of files that start with a prefix. Method takes two arguments:
+        folder_path - a path to the folder in which considered files are located.
+        '''
         files_list = []
         with os.scandir(folder_path) as entries:
             for entry in entries:
@@ -35,7 +40,9 @@ class FilesOrganization(object):
         return files_list
 
     def get_files_with_suffix(self, folder_path, suffix):
-        '''Returns a list of files that end with a suffix.'''
+        '''Returns a list of files that end with a suffix. Method takes two arguments.
+        folder_path - a path to the folder in which considered files are located.
+        '''
         files_list = []
         with os.scandir(folder_path) as entries:
             for entry in entries:
@@ -72,8 +79,3 @@ class FilesOrganization(object):
         new_fullfilename = filename + '_' + suffix + file_extension
         os.rename(os.path.join(path, fullfilename), os.path.join(path, new_fullfilename))
         return new_fullfilename
-
-
-
-
-

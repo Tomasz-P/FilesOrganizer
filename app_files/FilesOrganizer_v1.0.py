@@ -26,8 +26,9 @@ def rename_files_and_move(object, files_list, source_path, destination_path):
     '''Check files if they are not empty, renames them and move from a source
     path to a destination path.'''
     for full_filename in files_list:
-        if object.label_empty_file(source_path, full_filename) == 0:
-            new_full_filename = object.add_suffix_to_filename(source_path, full_filename, object.get_file_ctime(source_path, full_filename))
+        new_full_filename = object.add_suffix_to_filename(source_path, full_filename,
+                                                          object.get_file_ctime(source_path, full_filename))
+        if object.label_empty_file(source_path, new_full_filename) == 0:
             object.move_file(new_full_filename, source_path, destination_path)
     return 0
 
@@ -35,16 +36,14 @@ def main():
     '''Main function of the script.'''
     try:
         SETTINGS = load_settings('FilesOrganizer_cfg.ini')
-        # print(SETTINGS)
+        #print(SETTINGS)
         source_folder = SETTINGS['general_settings']['source_folder']
         file_prefixes = SETTINGS['filenames_startswith']
         organizer = FilesOrganization()
         for file_prefix in file_prefixes.keys():
-            print(f'{file_prefix} ---> {file_prefixes[file_prefix]}')
             files_list = organizer.get_files_with_prefix(source_folder, file_prefix)
             destination_folder = file_prefixes[file_prefix]
             rename_files_and_move(organizer, files_list, source_folder, destination_folder)
-            print(f'Files {files_list} have been moved from {source_folder} to {destination_folder}.')
     except configparser.Error:
         print('\nAn exception associated with the configuration file has occurred.\nCheck the file.')
 
