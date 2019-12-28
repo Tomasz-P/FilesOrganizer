@@ -3,4 +3,7 @@ Organizes files by coping them from one common directory (in which all the files
 
 Usage: FilesOrganizer.py [options] path
 
-optional arguments:                                                                                                                       -h, --help                      show this help message and exit                                                                           -v, --version                   show program version                                                                                      -cfg CONFIG, --config CONFIG    configuration file
+optional arguments:  
+-h, --help                      show this help message and exit  
+-v, --version                   show program version  
+-cfg CONFIG, --config CONFIG    configuration file
