@@ -12,6 +12,7 @@ from it_systems_adm.notifications import MailBodies
 from it_systems_adm.pycli import Cli
 import logging
 import configparser
+import os
 
 # DEFINED FUNCTIONS
 
@@ -80,7 +81,7 @@ def main():
             files_list = organizer.get_files_with_prefix(source_folder, file_prefix)
             destination_folder = file_prefixes_to_dirs_name[file_prefix]
             if files_list == []:
-                devs_without_files.append(destination_folder.split('/')[-1])
+                devs_without_files.append(destination_folder.split(os.sep)[-1])
                 print(f'No files wih prefix {file_prefix} found')
                 logging.info(f'No files with prefix {file_prefix} found.')
             else:
